@@ -1,14 +1,14 @@
 class Board:
-    def __init__(self, m, n, x, y):        
+    def __init__(self, m : int, n : int, x : int, y : int) -> None:        
         if x <= 0 or x > m or y <= 0 or y > n:
-            raise ValueError("Wartości x i y muszą być mniejsze niż wielkość planszy oraz większe od zera")
+            raise ValueError("Współrzędne muszą mieścić się w granicach planszy.")
         
         self.m = m
         self.n = n
         self.x = x
         self.y = y
 
-    def find_neighbours(self):
+    def find_neighbours(self) -> list:
         points = []
 
         for i in range(self.x-1, self.x+2):
@@ -19,7 +19,7 @@ class Board:
         points.remove((self.x, self.y))
         return points
 
-    def draw(self):
+    def draw(self) -> list:
         points = self.find_neighbours()
         board = []
 
@@ -38,13 +38,16 @@ class Board:
 
         return board, points
 
+    def print(self) -> None:
+        draw, points = self.draw()
 
+        print("")
+        
+        for line in draw:
+            print(line)
+
+        print(f"\n{points}\n")
+
+        
 board = Board(10, 10, 6, 3)
-draw, points = board.draw()
-
-print("")
-
-for line in draw:
-    print(line)
-
-print(f"\n{points}\n")
+board.print()
